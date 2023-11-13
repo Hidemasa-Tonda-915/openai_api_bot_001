@@ -22,7 +22,8 @@ def communicate():
 
     response = openai.Completion.create(
         engine="text-davinci-003",
-        prompt=prompt
+        prompt=prompt,
+        max_tokens=3000
     )
 
     bot_message_content = response.choices[0].text.strip()
