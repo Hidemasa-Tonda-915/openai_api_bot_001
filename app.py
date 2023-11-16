@@ -18,18 +18,14 @@ def communicate():
     messages.append(user_message)
 
     # プロンプトの構築
-    prompt = "\n".join([m["content"] for m in messages])
-
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=3000
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
     )
 
-    bot_message_content = response.choices[0].text.strip()
-    bot_message = {"role": "assistant", "content": bot_message_content}
+    bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
-
+    
     st.session_state["user_input"] = ""  # 入力欄を消去
 
 # ユーザーインターフェイスの構築
